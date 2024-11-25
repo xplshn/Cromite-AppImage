@@ -71,7 +71,7 @@ cd ..
 wget -q "$URUNTIME" -O ./uruntime
 chmod +x ./uruntime
 
-Add udpate info to runtime
+#Add udpate info to runtime
 echo "Adding update information \"$UPINFO\" to runtime..."
 printf "$UPINFO" > data.upd_info
 llvm-objcopy --update-section=.upd_info=data.upd_info \
