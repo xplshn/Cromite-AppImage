@@ -55,6 +55,7 @@ cp -vn /usr/lib/libva-drm*         ./shared/lib
 cp -vn /usr/lib/libva.so*          ./shared/lib
 cp -vn /usr/lib/libGL*             ./shared/lib
 cp -vn /usr/lib/libnss*            ./shared/lib
+cp -vn /usr/lib/libfreeblpriv3.so  ./shared/lib
 cp -vn /usr/lib/libepoxy.so*       ./shared/lib
 cp -vn /usr/lib/libresolv.so*      ./shared/lib
 cp -vn /usr/lib/libsqlite3.so*     ./shared/lib
