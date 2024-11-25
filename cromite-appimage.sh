@@ -50,7 +50,7 @@ cp -vn /usr/lib/libpango*       ./shared/lib
 cp -vn /usr/lib/libXcursor.so*  ./shared/lib
 cp -vn /usr/lib/libXinerama.so* ./shared/lib
 cp -vn /usr/lib/libXxf86vm.so*  ./shared/lib
-cp -vn /usr/lib/dri             ./shared/lib
+cp -vr /usr/lib/dri             ./shared/lib
 ldd ./shared/lib/libsoftokn3.so \
 	./shared/lib/libnss* \
 	./shared/lib/libgtk-*
