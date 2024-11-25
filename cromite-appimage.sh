@@ -43,9 +43,13 @@ sed -i 's|/usr/lib/||g'   ./usr/share/vulkan/icd.d/*
 # These libs are not found by strace mode for some reason
 # is cromite just not opening in the CI?
 cp -vn /usr/lib/libsoftokn3.so     ./shared/lib
+cp -vn /usr/lib/libhwy.so.1        ./shared/lib
+cp -vn /usr/lib/libheif.so.1       ./shared/lib
 cp -vn /usr/lib/libtiff.so*        ./shared/lib
 cp -vn /usr/lib/libcloudproviders* ./shared/lib
 cp -vn /usr/lib/libjbig.so*        ./shared/lib
+cp -vn /usr/lib/libjxl*            ./shared/lib
+cp -vn /usr/lib/libsharpyuv.so*    ./shared/lib
 cp -vn /usr/lib/libjpeg.so*        ./shared/lib
 cp -vn /usr/lib/libva-drm*         ./shared/lib
 cp -vn /usr/lib/libva.so*          ./shared/lib
@@ -62,6 +66,9 @@ cp -vn /usr/lib/libXcursor.so*     ./shared/lib
 cp -vn /usr/lib/libXinerama.so*    ./shared/lib
 cp -vn /usr/lib/libXxf86vm.so*     ./shared/lib
 cp -vn /usr/lib/libwayland*        ./shared/lib
+cp -vn /usr/lib/libwmf*            ./shared/lib
+cp -vn /usr/lib/libx265.so*        ./shared/lib
+cp -vn /usr/lib/libxcb-*           ./shared/lib
 cp -vn /usr/lib/libpci.so*         ./shared/lib
 cp -vn /usr/lib/libvulkan*         ./shared/lib
 cp -vr /usr/lib/gvfs               ./shared/lib
