@@ -40,6 +40,8 @@ cp -rv /usr/share/X11     ./usr/share
 sed -i 's|/usr/lib/||g'   ./usr/share/vulkan/icd.d/*
 
 cp -v /usr/lib/libsoftokn3.so ./shared/lib
+ldd ./shared/lib/libsoftokn3.so \
+	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./lib
 
 # Weird
 ln -s ../bin/chrome ./shared/bin/exe
