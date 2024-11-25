@@ -42,20 +42,41 @@ sed -i 's|/usr/lib/||g'   ./usr/share/vulkan/icd.d/*
 
 # These libs are not found by strace mode for some reason
 # is cromite just not opening in the CI?
-cp -vn /usr/lib/libsoftokn3.so  ./shared/lib
-cp -vn /usr/lib/libGL*          ./shared/lib
-cp -vn /usr/lib/libnss*         ./shared/lib
-cp -vn /usr/lib/libgtk-*        ./shared/lib
-cp -vn /usr/lib/libpango*       ./shared/lib
-cp -vn /usr/lib/libXcursor.so*  ./shared/lib
-cp -vn /usr/lib/libXinerama.so* ./shared/lib
-cp -vn /usr/lib/libXxf86vm.so*  ./shared/lib
-cp -vr /usr/lib/dri             ./shared/lib
+cp -vn /usr/lib/libsoftokn3.so     ./shared/lib
+cp -vn /usr/lib/libtiff.so*        ./shared/lib
+cp -vn /usr/lib/libcloudproviders* ./shared/lib
+cp -vn /usr/lib/libjbig.so*        ./shared/lib
+cp -vn /usr/lib/libjpeg.so*        ./shared/lib
+cp -vn /usr/lib/libGL*             ./shared/lib
+cp -vn /usr/lib/libnss*            ./shared/lib
+cp -vn /usr/lib/libresolv.so*      ./shared/lib
+cp -vn /usr/lib/libsqlite3.so*     ./shared/lib
+cp -vn /usr/lib/libgtk-*           ./shared/lib
+cp -vn /usr/lib/libgdk-*           ./shared/lib
+cp -vn /usr/lib/libcairo-go*       ./shared/lib
+cp -vn /usr/lib/libpango*          ./shared/lib
+cp -vn /usr/lib/libXcursor.so*     ./shared/lib
+cp -vn /usr/lib/libXinerama.so*    ./shared/lib
+cp -vn /usr/lib/libXxf86vm.so*     ./shared/lib
+cp -vn /usr/lib/libpci.so*         ./shared/lib
+cp -vr /usr/lib/dri                ./shared/lib
 ldd ./shared/lib/libsoftokn3.so \
 	./shared/lib/libnss* \
 	./shared/lib/libgtk-*
 	./shared/lib/libGL* 2>/dev/null \
 	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./lib
+
+# DEPLOY GDK
+echo "Deploying gdk..."
+GDK_PATH="$(find /usr/lib -type d -regex ".*/gdk-pixbuf-2.0" -print -quit)"
+cp -rv "$GDK_PATH" ./shared/lib
+
+echo "Deploying gdk deps..."
+find ./shared/lib/gdk-pixbuf-2.0 -type f -name '*.so*' -exec ldd {} \; \
+	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./shared/lib || true
+
+find ./shared/lib -type f -regex '.*gdk.*loaders.cache' \
+	-exec sed -i 's|/.*lib.*/gdk-pixbuf.*/.*/loaders/||g' {} \;
 
 # Weird
 ln -s ../bin/chrome ./shared/bin/exe
