@@ -28,6 +28,7 @@ rm -f *.tar.*
 mv ./chrome-lin ./bin
 ln -s ../bin ./shared/lib
 ln -s ./shared ./usr
+ln -s ./usr/share ./share
 
 # DEPLOY ALL LIBS
 wget --retry-connrefused --tries=30 "$LIB4BIN" -O ./lib4bin
