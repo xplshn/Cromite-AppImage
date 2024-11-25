@@ -40,13 +40,21 @@ cp -rv /usr/share/vulkan  ./usr/share
 cp -rv /usr/share/X11     ./usr/share
 sed -i 's|/usr/lib/||g'   ./usr/share/vulkan/icd.d/*
 
-cp -v /usr/lib/libsoftokn3.so ./shared/lib
-cp -v /usr/lib/libGL.so.1     ./shared/lib
-cp -v /usr/lib/libnss*        ./shared/lib
+# These libs are not found by strace mode for some reason
+# is cromite just not opening in the CI?
+cp -vn /usr/lib/libsoftokn3.so  ./shared/lib
+cp -vn /usr/lib/libGL.so.1      ./shared/lib
+cp -vn /usr/lib/libnss*         ./shared/lib
 ldd ./shared/lib/libsoftokn3.so \
 	./shared/lib/libGL.so.1 \
 	./shared/lib/libnss* 2>/dev/null \
 	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./lib
+
+cp -vn /usr/lib/libtiff.so*     ./shared/lib
+cp -vn /usr/lib/libva-*         ./shared/lib
+cp -vn /usr/lib/libvulkan*      ./shared/lib
+cp -vn /usr/lib/libwayland*     ./shared/lib
+cp -vn /usr/lib/libxcb-*        ./shared/lib
 
 # Weird
 ln -s ../bin/chrome ./shared/bin/exe
