@@ -43,18 +43,19 @@ sed -i 's|/usr/lib/||g'   ./usr/share/vulkan/icd.d/*
 # These libs are not found by strace mode for some reason
 # is cromite just not opening in the CI?
 cp -vn /usr/lib/libsoftokn3.so  ./shared/lib
-cp -vn /usr/lib/libGL.so.1      ./shared/lib
+cp -vn /usr/lib/libGL*          ./shared/lib
 cp -vn /usr/lib/libnss*         ./shared/lib
+cp -vn /usr/lib/libgtk-*        ./shared/lib
+cp -vn /usr/lib/libpango*       ./shared/lib
+cp -vn /usr/lib/libXcursor.so*  ./shared/lib
+cp -vn /usr/lib/libXinerama.so* ./shared/lib
+cp -vn /usr/lib/libXxf86vm.so*  ./shared/lib
+cp -vn /usr/lib/dri             ./shared/lib
 ldd ./shared/lib/libsoftokn3.so \
-	./shared/lib/libGL.so.1 \
-	./shared/lib/libnss* 2>/dev/null \
+	./shared/lib/libnss* \
+	./shared/lib/libgtk-*
+	./shared/lib/libGL* 2>/dev/null \
 	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./lib
-
-cp -vn /usr/lib/libtiff.so*     ./shared/lib
-cp -vn /usr/lib/libva-*         ./shared/lib
-cp -vn /usr/lib/libvulkan*      ./shared/lib
-cp -vn /usr/lib/libwayland*     ./shared/lib
-cp -vn /usr/lib/libxcb-*        ./shared/lib
 
 # Weird
 ln -s ../bin/chrome ./shared/bin/exe
