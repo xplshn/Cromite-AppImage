@@ -39,8 +39,10 @@ cp -rv /usr/share/vulkan  ./usr/share
 cp -rv /usr/share/X11     ./usr/share
 sed -i 's|/usr/lib/||g'   ./usr/share/vulkan/icd.d/*
 
+cp -v /usr/lib/libsoftokn3.so ./shared/lib
+
 # Weird
- ln -s ../bin/chrome ./shared/bin/exe
+ln -s ../bin/chrome ./shared/bin/exe
 
 # DESKTOP AND ICON
 cat > "$PACKAGE".desktop << EOF
@@ -69,12 +71,12 @@ cd ..
 wget -q "$URUNTIME" -O ./uruntime
 chmod +x ./uruntime
 
-#Add udpate info to runtime
-#echo "Adding update information \"$UPINFO\" to runtime..."
-#printf "$UPINFO" > data.upd_info
-#llvm-objcopy --update-section=.upd_info=data.upd_info \
-#	--set-section-flags=.upd_info=noload,readonly ./uruntime
-#printf 'AI\x02' | dd of=./uruntime bs=1 count=3 seek=8 conv=notrunc
+Add udpate info to runtime
+echo "Adding update information \"$UPINFO\" to runtime..."
+printf "$UPINFO" > data.upd_info
+llvm-objcopy --update-section=.upd_info=data.upd_info \
+	--set-section-flags=.upd_info=noload,readonly ./uruntime
+printf 'AI\x02' | dd of=./uruntime bs=1 count=3 seek=8 conv=notrunc
 
 echo "Generating AppImage..."
 ./uruntime --appimage-mkdwarfs -f \
@@ -84,8 +86,8 @@ echo "Generating AppImage..."
 	--header uruntime \
 	-i ./AppDir -o "$PACKAGE"-"$VERSION"-anylinux-"$ARCH".AppImage
 
-#echo "Generating zsync file..."
-#zsyncmake *.AppImage -u *.AppImage
+echo "Generating zsync file..."
+zsyncmake *.AppImage -u *.AppImage
 
 mv ./*.AppImage* ../
 cd ..
