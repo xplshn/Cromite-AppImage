@@ -42,8 +42,10 @@ sed -i 's|/usr/lib/||g'   ./usr/share/vulkan/icd.d/*
 
 cp -v /usr/lib/libsoftokn3.so ./shared/lib
 cp -v /usr/lib/libGL.so.1     ./shared/lib
+cp -v /usr/lib/libnss*        ./shared/lib
 ldd ./shared/lib/libsoftokn3.so \
 	./shared/lib/libGL.so.1 \
+	./shared/lib/libnss* 2>/dev/null \
 	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./lib
 
 # Weird
