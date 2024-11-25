@@ -23,7 +23,7 @@ jobs:
           vulkan-radeon vulkan-intel vulkan-nouveau
         pacman-key --init && pacman-key --populate archlinux
         printf "\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n" | tee -a /etc/pacman.conf
-        pacman -Syu --noconfirm zsync nss chromium gtk3 wayland
+        pacman -Syu --noconfirm zsync nss chromium gtk3 wayland libva libtiff libxcb xcb-util-keysyms
 
         chmod +x ./*-appimage.sh && ./*-appimage.sh
         mkdir dist
