@@ -39,6 +39,9 @@ cp -rv /usr/share/vulkan  ./usr/share
 cp -rv /usr/share/X11     ./usr/share
 sed -i 's|/usr/lib/||g'   ./usr/share/vulkan/icd.d/*
 
+# Weird
+ ln -s ../bin/chrome ./shared/bin/exe
+
 # DESKTOP AND ICON
 cat > "$PACKAGE".desktop << EOF
 [Desktop Entry]
