@@ -66,7 +66,6 @@ cp -vn /usr/lib/libXcursor.so*     ./shared/lib
 cp -vn /usr/lib/libXinerama.so*    ./shared/lib
 cp -vn /usr/lib/libXxf86vm.so*     ./shared/lib
 cp -vn /usr/lib/libwayland*        ./shared/lib
-cp -vn /usr/lib/libwmf*            ./shared/lib
 cp -vn /usr/lib/libx265.so*        ./shared/lib
 cp -vn /usr/lib/libxcb-*           ./shared/lib
 cp -vn /usr/lib/libpci.so*         ./shared/lib
