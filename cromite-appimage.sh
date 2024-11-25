@@ -70,6 +70,7 @@ cp -vn /usr/lib/libx265.so*        ./shared/lib
 cp -vn /usr/lib/libxcb-*           ./shared/lib
 cp -vn /usr/lib/libpci.so*         ./shared/lib
 cp -vn /usr/lib/libvulkan*         ./shared/lib
+cp -vr /usr/lib/pkcs11             ./shared/lib
 cp -vr /usr/lib/gconv              ./shared/lib
 cp -vr /usr/lib/gvfs               ./shared/lib
 cp -vr /usr/lib/gio                ./shared/lib
