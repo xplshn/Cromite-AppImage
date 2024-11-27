@@ -107,6 +107,7 @@ Name=$PACKAGE
 Exec=chrome %U
 Terminal=false
 Icon=$PACKAGE
+StartupWMClass=Chromium-browser
 Type=Application
 Categories=Application;Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml_xml;
