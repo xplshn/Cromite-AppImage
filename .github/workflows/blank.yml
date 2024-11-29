@@ -99,7 +99,7 @@ jobs:
           with:
             name: "Snapshot ${{ env.APP_VERSION}}"
             tag_name: "${{ env.SNAPSHOT_TAG}}"
-            prerelease: true
+            prerelease: false
             draft: false
             generate_release_notes: false
             make_latest: false
