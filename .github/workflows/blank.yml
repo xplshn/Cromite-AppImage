@@ -51,7 +51,7 @@ jobs:
         #Continuous Release
         - name: Del Previous Release
           run: |
-            gh release delete "continuous" --repo "${GITHUB_REPOSITORY}" -y
+            gh release edit "continuous" --notes "Updated Release $(date --utc +'%Y%m%d-%H%M%S')" --repo "${GITHUB_REPOSITORY}" --verify-tag -y
           env:
             GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           continue-on-error: true
