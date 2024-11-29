@@ -49,9 +49,9 @@ jobs:
             name: AppImage
 
         #Continuous Release
-        - name: Update Previous Release
+        - name: Del Previous Release
           run: |
-            gh release edit "continuous" --notes "Updated Release $(date --utc +'%Y%m%d-%H%M%S')" --repo "${GITHUB_REPOSITORY}" --verify-tag
+            gh release delete "continuous" --repo "${GITHUB_REPOSITORY}" --cleanup-tag  -y
           env:
             GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           continue-on-error: true
