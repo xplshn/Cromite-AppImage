@@ -78,7 +78,7 @@ jobs:
         - name: Continuous Releaser
           uses: softprops/action-gh-release@v2
           with:
-            name: "Build ${{ env.APP_VERSION}}"
+            name: "Cromite AppImage ${{ env.APP_VERSION}}"
             tag_name: "${{ env.APP_VERSION}}"
             prerelease: false
             draft: false
