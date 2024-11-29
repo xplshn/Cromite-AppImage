@@ -49,6 +49,12 @@ jobs:
             name: AppImage
 
         #Continuous Release
+        - name: Del Previous Release
+          run: |
+            gh release delete "continuous" --repo "${GITHUB_REPOSITORY}" -y
+          env:
+            GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          continue-on-error: true
         - name: Continuous Releaser
           uses: softprops/action-gh-release@v2
           with:
