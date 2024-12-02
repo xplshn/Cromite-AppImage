@@ -14,7 +14,7 @@ export APPIMAGE_EXTRACT_AND_RUN=1
 export VERSION="$(echo "$CROMITE_URL" | awk -F'-|/' 'NR==1 {print $(NF-3)}')"
 echo "$VERSION" > ~/version
 
-UPINFO="gh-releases-zsync|$(echo $GITHUB_REPOSITORY | tr '/' '|')|latest|*$ARCH.AppImage.zsync"
+UPINFO="gh-releases-zsync|$(echo "$GITHUB_REPOSITORY" | tr '/' '|')|latest|*$ARCH.AppImage.zsync"
 LIB4BIN="https://raw.githubusercontent.com/VHSgunzo/sharun/refs/heads/main/lib4bin"
 URUNTIME=$(wget -q --retry-connrefused --tries=30 \
 	https://api.github.com/repos/VHSgunzo/uruntime/releases -O - \
@@ -73,6 +73,7 @@ cp -vn /usr/lib/libxcb-*           ./shared/lib
 cp -vn /usr/lib/libpci.so*         ./shared/lib
 cp -vn /usr/lib/libvulkan*         ./shared/lib
 cp -vr /usr/lib/pkcs11             ./shared/lib
+cp -vr /usr/lib/gtk-3.0            ./shared/lib
 cp -vr /usr/lib/gconv              ./shared/lib
 cp -vr /usr/lib/gvfs               ./shared/lib
 cp -vr /usr/lib/gio                ./shared/lib
