@@ -91,11 +91,14 @@ GDK_PATH="$(find /usr/lib -type d -regex ".*/gdk-pixbuf-2.0" -print -quit)"
 cp -rv "$GDK_PATH" ./shared/lib
 
 echo "Deploying gdk deps..."
-find ./shared/lib/gdk-pixbuf-2.0 -type f -name '*.so*' -exec ldd {} \; \
+find ./bin/gdk-pixbuf-2.0 -type f -name '*.so*' -exec ldd {} \; \
 	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./shared/lib || true
 
-find ./shared/lib -type f -regex '.*gdk.*loaders.cache' \
+# Patch gdk and gtk .cache file
+find ./bin -type f -regex '.*gdk.*loaders.cache' \
 	-exec sed -i 's|/.*lib.*/gdk-pixbuf.*/.*/loaders/||g' {} \;
+find ./bin -type f -regex '.*gtk.*immodules.cache' \
+	-exec sed -i 's|/.*lib.*/gtk-.*/.*/immodules/||g' {} \;
 
 # Weird
 ln -s ../bin/chrome ./shared/bin/exe
