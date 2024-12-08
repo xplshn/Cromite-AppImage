@@ -49,6 +49,7 @@ cp -vn /usr/lib/libheif.so.1       ./shared/lib
 cp -vn /usr/lib/libedit.so*        ./shared/lib
 cp -vn /usr/lib/libelf*.so*        ./shared/lib
 cp -vn /usr/lib/libsensors.so*     ./shared/lib
+cp -vn /usr/lib/libncursesw.so*    ./shared/lib
 cp -vn /usr/lib/libtiff.so*        ./shared/lib
 cp -vn /usr/lib/libcloudproviders* ./shared/lib
 cp -vn /usr/lib/libjbig.so*        ./shared/lib
@@ -70,6 +71,7 @@ cp -vn /usr/lib/libpango*          ./shared/lib
 cp -vn /usr/lib/libXcursor.so*     ./shared/lib
 cp -vn /usr/lib/libX11-xcb.so*     ./shared/lib
 cp -vn /usr/lib/libXinerama.so*    ./shared/lib
+cp -vn /usr/lib/libxshmfence.so*   ./shared/lib
 cp -vn /usr/lib/libXxf86vm.so*     ./shared/lib
 cp -vn /usr/lib/libwayland*        ./shared/lib
 cp -vn /usr/lib/libx265.so*        ./shared/lib
