@@ -79,6 +79,7 @@ cp -vn /usr/lib/libxcb-*           ./shared/lib
 cp -vn /usr/lib/libpci.so*         ./shared/lib
 cp -vn /usr/lib/libpciaccess.so*   ./shared/lib
 cp -vn /usr/lib/libvulkan*         ./shared/lib
+cp -vn /usr/lib/libGLU*            ./shared/lib
 cp -vn /usr/lib/libLLVM.so.18.1    ./shared/lib
 cp -vn /usr/lib/libglapi.so*       ./shared/lib
 cp -vn /usr/lib/libdrm_*           ./shared/lib
