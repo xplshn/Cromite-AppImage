@@ -72,6 +72,7 @@ cp -vn /usr/lib/libx265.so*        ./shared/lib
 cp -vn /usr/lib/libxcb-*           ./shared/lib
 cp -vn /usr/lib/libpci.so*         ./shared/lib
 cp -vn /usr/lib/libvulkan*         ./shared/lib
+cp -vn /usr/lib/libLLVM.so.18.1    ./shared/lib
 cp -vr /usr/lib/pkcs11             ./shared/lib
 cp -vr /usr/lib/gtk-3.0            ./shared/lib
 cp -vr /usr/lib/gconv              ./shared/lib
@@ -80,6 +81,7 @@ cp -vr /usr/lib/gio                ./shared/lib
 cp -vr /usr/lib/dri                ./shared/lib
 
 ldd ./shared/lib/libsoftokn3.so \
+	./shared/lib/libLLVM* \
 	./shared/lib/libnss* \
 	./shared/lib/libgtk-*
 	./shared/lib/libGL* 2>/dev/null \
