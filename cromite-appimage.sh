@@ -38,13 +38,17 @@ xvfb-run -d -- ./lib4bin -p -v -r -s -e -k ./bin/chrome -- google.com --no-sandb
 
 find ./bin/*/*/*/*/* -type f -name '*.so*' -exec mv -v {} ./bin \; || true
 
+cp -vn /usr/lib/libpulse*          ./shared/lib
+cp -vn /usr/lib/libelogind.so*     ./shared/lib
 cp -vn /usr/lib/libwayland*        ./shared/lib
 cp -vn /usr/lib/libnss*            ./shared/lib
+cp -vn /usr/lib/libsoftokn3.so     ./shared/lib
 cp -vn /usr/lib/libfreeblpriv3.so  ./shared/lib
 cp -vn /usr/lib/libgtk*            ./shared/lib
 cp -vn /usr/lib/libcloudproviders* ./shared/lib
 cp -vn /usr/lib/libGLX*            ./shared/lib
 cp -vn /usr/lib/libxcb-glx*        ./shared/lib
+cp -vn /usr/lib/libXcursor.so.1    ./shared/lib
 cp -vn /usr/lib/libXinerama*       ./shared/lib
 cp -vn /usr/lib/libgdk*            ./shared/lib
 cp -vr /usr/lib/gtk-3.0            ./shared/lib
@@ -53,13 +57,15 @@ cp -vr /usr/lib/pkcs11             ./shared/lib
 cp -vr /usr/lib/gvfs               ./shared/lib
 cp -vr /usr/lib/gio                ./shared/lib
 cp -vr /usr/lib/dri                ./shared/lib
+cp -vr /usr/lib/pulseaudio         ./shared/lib
 
 ldd ./shared/lib/libsoftokn3.so \
 	./shared/lib/libwayland* \
 	./shared/lib/libLLVM* \
 	./shared/lib/libnss* \
 	./shared/lib/libgtk* \
-	./shared/lib/libGL* 2>/dev/null \
+	./shared/lib/libGL* \
+	./shared/lib/libpulse* 2>/dev/null \
 	| awk -F"[> ]" '{print $4}' | xargs -I {} cp -vn {} ./lib
 
 # DEPLOY GDK
@@ -119,7 +125,7 @@ echo "Generating AppImage..."
 ./uruntime --appimage-mkdwarfs -f \
 	--set-owner 0 --set-group 0 \
 	--no-history --no-create-timestamp \
-	--compression zstd:level=22 -S21 -B16 \
+	--compression zstd:level=22 -S20 -B16 \
 	--header uruntime \
 	-i ./AppDir -o "$PACKAGE"-"$VERSION"-anylinux-"$ARCH".AppImage
 
