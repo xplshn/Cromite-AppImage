@@ -1,4 +1,4 @@
-name: Appimage
+name: Create and release AppBundle & Appimage
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
@@ -12,7 +12,9 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     permissions: write-all
-    container: artixlinux/artixlinux:latest
+    container:
+      image: artixlinux/artixlinux:latest
+      options: --privileged
     steps:
     - uses: actions/checkout@v4
 
@@ -20,7 +22,7 @@ jobs:
       if: always()
       run: |
         sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
-        pacman -Syu --noconfirm base-devel strace patchelf curl wget \
+        pacman -Syu --noconfirm fuse2 fuse3 base-devel strace patchelf curl wget \
           desktop-file-utils git artix-archlinux-support llvm mesa xorg-server-xvfb \
           vulkan-radeon vulkan-intel vulkan-nouveau
         pacman-key --init && pacman-key --populate archlinux
@@ -32,6 +34,7 @@ jobs:
         chmod +x ./*-appimage.sh && ./*-appimage.sh
         mkdir dist
         mv *.AppImage* dist/
+        mv *.AppBundle* dist/
 
     - name: Check version file
       run: |
@@ -41,7 +44,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4.4.3
       with:
-        name: AppImage
+        name: Cromite
         path: 'dist'
         
     - name: Upload version file
@@ -58,7 +61,7 @@ jobs:
       steps:
         - uses: actions/download-artifact@v4.1.8
           with:
-            name: AppImage
+            name: Cromite
         - uses: actions/download-artifact@v4.1.8
           with:
             name: version
@@ -79,7 +82,7 @@ jobs:
         - name: Continuous Releaser
           uses: softprops/action-gh-release@v2
           with:
-            name: "Cromite AppImage ${{ env.APP_VERSION}}"
+            name: "Cromite ${{ env.APP_VERSION}}"
             tag_name: "${{ env.APP_VERSION}}"
             prerelease: false
             draft: false
@@ -87,6 +90,7 @@ jobs:
             make_latest: true
             files: |
               *.AppImage*
+              *.AppBundle*
           continue-on-error: false
 
         #Snapshot Release
@@ -106,4 +110,5 @@ jobs:
             make_latest: false
             files: |
               *.AppImage*
+              *.AppBundle*
           continue-on-error: false
