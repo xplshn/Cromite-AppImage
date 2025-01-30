@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: build
+    - name: Get dependencies
       if: always()
       run: |
         sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
@@ -29,12 +29,21 @@ jobs:
         printf "\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n" | tee -a /etc/pacman.conf
         pacman -Syu --noconfirm zsync nss chromium gtk3 wayland libva libtiff \
           libxcb xcb-util-keysyms gvfs libepoxy highway libheif libjxl x265 \
-          xcb-util-cursor gtkmm3 glu
+          xcb-util-cursor gtkmm3 glu pulseaudio-alsa
 
-        chmod +x ./*-appimage.sh && ./*-appimage.sh
-        mkdir dist
-        mv *.AppImage* dist/
-        mv *.AppBundle* dist/
+    - name: Install debloated llvm-libs
+      run: |
+        LLVM="$(wget https://api.github.com/repos/Samueru-sama/llvm-libs-debloated/releases -O - \
+          | sed 's/[()",{} ]/\n/g' | grep -oi "https.*very-minimal.pkg.tar.zst$" | head -1)"
+        wget "$LLVM" -O ./llvm-libs.pkg.tar.zst
+        pacman -U --noconfirm ./llvm-libs.pkg.tar.zst
+        
+    - name: Make AppImage/AppBundle
+      run: |
+       chmod +x ./*-appimage.sh && ./*-appimage.sh
+       mkdir dist
+       mv *.AppImage* dist/
+       mv *.AppBundle* dist/
 
     - name: Check version file
       run: |
@@ -80,7 +89,7 @@ jobs:
             GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           continue-on-error: true
         - name: Continuous Releaser
-          uses: softprops/action-gh-release@v2
+          uses: softprops/action-gh-release@v2.2.1
           with:
             name: "Cromite ${{ env.APP_VERSION}}"
             tag_name: "${{ env.APP_VERSION}}"
@@ -100,7 +109,7 @@ jobs:
             echo SNAPSHOT_TAG="${SNAPSHOT_TAG}" >> "${GITHUB_ENV}"
           continue-on-error: false
         - name: Snapshot Releaser
-          uses: softprops/action-gh-release@v2
+          uses: softprops/action-gh-release@v2.2.1
           with:
             name: "Snapshot ${{ env.APP_VERSION}}"
             tag_name: "${{ env.SNAPSHOT_TAG}}"
