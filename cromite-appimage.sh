@@ -53,6 +53,7 @@ xvfb-run -a -- ./lib4bin -p -v -s -e -k ./bin/chrome -- google.com --no-sandbox
 	/usr/lib/gvfs/* \
 	/usr/lib/gio/modules/* \
 	/usr/lib/dri/* \
+	/usr/lib/gbm/* \
 	/usr/lib/pulseaudio/* \
 	/usr/lib/alsa-lib/*
 
@@ -64,6 +65,11 @@ find ./bin/*/*/*/*/* -type f -name '*.so*' -exec mv -v {} ./bin \; || true
 
 # Weird
 ln -s ../bin/chrome ./shared/bin/exe
+
+# Seems libgbm.so.1 is hardcoded to look into /usr/lib/gbm
+# Is there an env variable that can overwrite this instead?
+sed -i 's|/usr|././|g' ./lib/libgbm.so*
+echo 'SHARUN_WORKING_DIR=${SHARUN_DIR}' >> ./.env
 
 # DESKTOP AND ICON
 cat > "$PACKAGE".desktop << EOF
