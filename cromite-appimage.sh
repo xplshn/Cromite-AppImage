@@ -3,7 +3,7 @@
 set -eu
 
 PACKAGE=Cromite
-ICON="https://camo.githubusercontent.com/6b4ee03be91712db2d81b603a1bb83553e97b66fa49443bf27b641089ea51696/68747470733a2f2f7777772e63726f6d6974652e6f72672f6170705f69636f6e2e706e67"
+ICON="https://github.com/pkgforge-dev/Cromite-AppImage/blob/main/Cromite.png?raw=true"
 
 CROMITE_URL=$(wget -q --retry-connrefused --tries=30 \
 	https://api.github.com/repos/uazo/cromite/releases -O - \
