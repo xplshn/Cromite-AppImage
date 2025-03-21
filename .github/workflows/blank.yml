@@ -14,7 +14,6 @@ jobs:
     permissions: write-all
     container:
       image: artixlinux/artixlinux:latest
-      options: --privileged
     steps:
     - uses: actions/checkout@v4
 
