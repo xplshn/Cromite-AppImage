@@ -125,8 +125,6 @@ echo "Generating [dwfs]AppBundle...(Go runtime)"
      	    --compression "-C zstd:level=22 -S24 -B64" \
 	    --output-to "${PACKAGE}-${VERSION}-anylinux-${ARCH}.dwfs.AppBundle"
 
-rm ./pelf-toolchain.sqfs.AppBundle
-
 echo "Generating zsync file..."
 zsyncmake *.AppImage -u *.AppImage
 zsyncmake *.AppBundle -u *.AppBundle
