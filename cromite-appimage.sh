@@ -121,10 +121,10 @@ echo "Generating AppImage..."
 wget -qO ./pelf "https://github.com/xplshn/pelf/releases/latest/download/pelf_$(uname -m)" && chmod +x ./pelf
 echo "Generating [dwfs]AppBundle...(Go runtime)"
 ./pelf --add-appdir ./AppDir \
-	    --appbundle-id="${PACKAGE}-${VERSION}" \
-     	    --compression "-C zstd:level=22 -S24 -B64" \
-	    --disable-use-random-workdir \ # speeds up launch time
-	    --output-to "${PACKAGE}-${VERSION}-anylinux-${ARCH}.dwfs.AppBundle"
+	--appbundle-id="${PACKAGE}-${VERSION}" \
+     	--compression "-C zstd:level=22 -S24 -B64" \
+	--output-to "${PACKAGE}-${VERSION}-anylinux-${ARCH}.dwfs.AppBundle" \
+	--disable-use-random-workdir # speeds up launch time
 
 echo "Generating zsync file..."
 zsyncmake *.AppImage -u *.AppImage
