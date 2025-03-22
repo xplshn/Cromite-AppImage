@@ -123,6 +123,7 @@ echo "Generating [dwfs]AppBundle...(Go runtime)"
 ./pelf --add-appdir ./AppDir \
 	    --appbundle-id="${PACKAGE}-${VERSION}" \
      	    --compression "-C zstd:level=22 -S24 -B64" \
+	    --disable-use-random-workdir \ # speeds up launch time
 	    --output-to "${PACKAGE}-${VERSION}-anylinux-${ARCH}.dwfs.AppBundle"
 
 echo "Generating zsync file..."
